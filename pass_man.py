@@ -6,6 +6,8 @@ def write_key():
     with open("key.key", "wb") as key_file:
         key_file.write(key)
     return Fernet.generate_key()
+
+write_key()
 '''
 
 def load_key():
@@ -14,9 +16,9 @@ def load_key():
     file.close()
     return key
 
-key = load_key()
 master_pwd = input("What is the master password: ")
-
+key = load_key() + master_pwd.bytes
+fer = Fernet(key)
 
 
 
@@ -26,7 +28,7 @@ def view():
         for line in f.readlines():
             data = line.rstrip()
             user, passw = data.split("|")
-            print(f"User: {user}, Password: {passw}")
+            print(f"User: {user}, Password: {str(fer.decrypt(passw.encode()))}")
 
 
 
@@ -35,7 +37,7 @@ def add():
     pwd = input("Enter the password for the entry: ")
 
     with open("password_manager.txt", "a") as f:
-        f.write(name + "|" + pwd + "\n")
+        f.write(name + "|" + str(fer.encrypt(pwd.encode())) + "\n")
 
 while True:
     mode = input("Would you like to add a new entry or retrieve an existing entry (view, add), press q to quit?: ").lower()
