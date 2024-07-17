@@ -49,7 +49,6 @@ Would you like to add a new entry or retrieve an existing entry (view, add), pre
 
 **Due to security limitations, it's not recommended to contribute to this project for practical password management.** However, if you're interested in learning about cryptography or basic password manager concepts, consider exploring ways to:
 
-- Implement a secure key management solution (not storing the master password in memory).
 - Use a more robust password hashing algorithm for the master password.
 
 **Security Considerations:**
